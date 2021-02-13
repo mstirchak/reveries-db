@@ -3,7 +3,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 DROP TABLE IF EXISTS "public"."user";
 CREATE TABLE "public"."user" (
   "id" uuid DEFAULT uuid_generate_v4 (),
-  "username" varchar COLLATE "pg_catalog"."default" NOT NULL,
+  "username" varchar COLLATE "pg_catalog"."default" NOT NULL UNIQUE,
   "password" varchar COLLATE "pg_catalog"."default" NOT NULL,
   "isActive" bool NOT NULL DEFAULT true
 );
