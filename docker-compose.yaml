@@ -1,0 +1,25 @@
+version: '3.7'
+networks:
+  default:
+    name: reveries-db-network
+
+services:
+  reveries-db:
+    image: "postgres:13"
+    container_name: reveries-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:${DB_PORT}"
+      
+  reveries-liquibase:
+    build:
+      context: .
+    container_name: reveries-db-liquibase
+    environment:
+      DB_URL: ${DB_HOST}:${DB_PORT}
+      LIQUIBASE_URL: "jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}"
+      LIQUIBASE_USERNAME: ${DB_USER}
+      LIQUIBASE_PASSWORD: ${DB_PASSWORD}
